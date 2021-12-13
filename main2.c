@@ -57,7 +57,7 @@ typedef struct s_glob {
 	char str[7];
 }	t_glob;
 
-static int i;
+static int i = 0;
 
 void   GET(int sum)
 {
@@ -65,7 +65,6 @@ void   GET(int sum)
 	index.str[i] = '1';
 	if (strlen(index.str) == 7) {
 		printf("%c\n" , (char)ft_conver_bin_to_dec(index.str));
-		// printf("i : [%d]\n", i);
 		ft_bzero(index.str, 7);
 		i = -1;
 	}
@@ -79,7 +78,6 @@ void   GET2(int sum)
 	if (strlen(index.str) == 7) {
 		printf("%c\n" , (char)ft_conver_bin_to_dec(index.str));
 		ft_bzero(index.str, 7);
-		// printf("i : [%d]\n", i);
 		i = -1;
 	}
 	i++;

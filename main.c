@@ -1,6 +1,8 @@
 #include "header.h"
 #include <stdlib.h>
 
+char     *ft_convert_binary_2(int tab);
+
 char    ft_putchar(char c)
 {
 	return (write (1, &c, 1));
@@ -26,7 +28,47 @@ char     *ft_convert_binary(int tab)
 
 	a = 0;
 	j = 1;
-	result = malloc(sizeof(char) * 9);
+	if (tab >= 32 && tab <= 63)
+	{
+		result = malloc(sizeof(char) * 8);
+		result2 = malloc(sizeof(char) * 9);
+		while (tab)
+		{
+			if (tab % 2 == 1)
+				result[a] = '1';
+			else
+				result[a] = '0';
+			tab /= 2;
+			a++;
+		}
+		result[a] = '\0';
+		i = strlen(result);
+		result2[0] = '0';
+		while (i--)
+		{
+			result2[j] = result[i];
+			j++; 
+		}
+		free(result);
+		result2[j] = '\0';
+	}
+	else
+		return ft_convert_binary_2(tab);
+	return result2;
+}
+
+char     *ft_convert_binary_2(int tab)
+{
+	int a;
+	int i;
+	int j;
+	char *result;
+	char *result2;
+
+	a = 0;
+	j = 0;
+	result = malloc(sizeof(char) * 8);
+	result2 = malloc(sizeof(char) * 8);
 	while (tab)
 	{
 		if (tab % 2 == 1)
@@ -38,12 +80,13 @@ char     *ft_convert_binary(int tab)
 	}
 	result[a] = '\0';
 	i = strlen(result);
-	result2[0] = '0';
 	while (i--)
 	{
 		result2[j] = result[i];
 		j++; 
 	}
+	result2[j] = '\0';
+	free(result);
 	return result2;
 }
 
@@ -78,9 +121,8 @@ void    client(pid_t pid, char *str)
 	{
 		j = 0;
 		tab = ft_convert_binary((int)str[i]); 
-		// printf("%s\n", tab);
-		j = strlen(tab);
-		while (j--)
+		// j = strlen(tab);
+		while (tab[j])
 		{
 			if (tab[j] == '1')
 			{
@@ -92,6 +134,7 @@ void    client(pid_t pid, char *str)
 				kill(pid, SIGUSR2);
 				usleep(100);
 			}
+			j++;
 		}
 		free(tab);
 		i++;
@@ -100,6 +143,6 @@ void    client(pid_t pid, char *str)
 
 int main(int ac, char **av)
 { 
-	// printf("%s" , ft_convert_binary(49));
+	// printf("%s" , ft_convert_binary(100));
 	client(atoi(av[1]) , av[2]);
 }
