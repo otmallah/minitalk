@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 size_t	ft_strlen(char *str);
 void	ft_bzero(void *s, size_t n);
@@ -24,29 +25,28 @@ typedef struct s_glob {
 }	t_glob;
 
 typedef struct s_test {
-	int i;
-	int j;
-	int a;
-	char *tab;
+	int		i;
+	int		j;
+	int		a;
+	char	*tab;
 }	t_test;
 
 typedef struct s_test2
 {
-	int a;
-	int i;
-	int j;
-	char *result;
-	char *result2;
+	int		a;
+	int		i;
+	int		j;
+	char	*result;
+	char	*result2;
 }	t_test2;
 
 typedef struct s_test3
 {
-	int a;
-	int i;
-	int j;
-	char *result;
-	char *result2;
-	char *result3;
+	int		a;
+	int		i;
+	int		j;
+	char	*result;
+	char	*result2;
 }	t_test3;
 
 #endif

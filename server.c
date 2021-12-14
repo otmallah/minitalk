@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: otmallah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/14 17:02:09 by otmallah          #+#    #+#             */
+/*   Updated: 2021/12/14 17:02:10 by otmallah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 static int	g_i;
@@ -58,8 +70,8 @@ void	ft_get_usr2(int sum)
 
 void	ft_get_usr1(int sum)
 {
-	t_glob		index;
-	char		res;
+	t_glob	index;
+	char	res;
 
 	index.str[g_i] = '1';
 	if (ft_strlen(index.str) == 7)
@@ -72,15 +84,16 @@ void	ft_get_usr1(int sum)
 	g_i++;
 }
 
-void	server()
+void	server(void)
 {
 	signal(SIGUSR1, ft_get_usr1);
 	signal(SIGUSR2, ft_get_usr2);
-	while (1);
+	while (1)
+		pause();
 }
 
-int main(void)
-{
-	printf("%d\n" , getpid());
-	server();
-}
+// int main(void)
+// {
+// 	printf("%d\n" , getpid());
+// 	server();
+// }
