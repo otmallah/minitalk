@@ -11,3 +11,9 @@ size_t ft_strle(char *str);
 void	ft_putnbr_fd(int n, int fd);
 int	ft_count_int(int numb);
 void	ft_bzero(void *s, size_t n);
+
+typedef struct s_glob {
+	char str[7];
+}	t_glob;
+
+static int i;
