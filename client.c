@@ -25,6 +25,7 @@ char	*norme(int taab, char *res)
 			res[a] = '1';
 		else
 			res[a] = '0';
+		taab /= 2;
 		a++;
 	}
 	res[a] = '\0';
