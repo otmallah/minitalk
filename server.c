@@ -1,16 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: otmallah <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 01:35:58 by otmallah          #+#    #+#             */
-/*   Updated: 2021/12/14 01:36:00 by otmallah         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "header.h"
+
+static int	g_i;
 
 int	ft_power(int nb, int power)
 {
@@ -55,15 +45,15 @@ void	ft_get_usr2(int sum)
 	t_glob	index;
 	char	res;
 
-	index.str[i] = '0';
-	if (strlen(index.str) == 7)
+	index.str[g_i] = '0';
+	if (ft_strlen(index.str) == 7)
 	{
 		res = (char)ft_conver_bin_to_dec(index.str);
 		write(1, &res, 1);
 		ft_bzero(index.str, 7);
-		i = -1;
+		g_i = -1;
 	}
-	i++;
+	g_i++;
 }
 
 void	ft_get_usr1(int sum)
@@ -71,20 +61,26 @@ void	ft_get_usr1(int sum)
 	t_glob		index;
 	char		res;
 
-	index.str[i] = '1';
-	if (strlen(index.str) == 7)
+	index.str[g_i] = '1';
+	if (ft_strlen(index.str) == 7)
 	{
 		res = (char )ft_conver_bin_to_dec(index.str);
 		write(1, &res, 1);
 		ft_bzero(index.str, 7);
-		i = -1;
+		g_i = -1;
 	}
-	i++;
+	g_i++;
 }
 
 void	server()
 {
 	signal(SIGUSR1, ft_get_usr1);
 	signal(SIGUSR2, ft_get_usr2);
-	while(1);
+	while (1);
+}
+
+int main(void)
+{
+	printf("%d\n" , getpid());
+	server();
 }

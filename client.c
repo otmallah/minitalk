@@ -1,110 +1,121 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: otmallah <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/14 02:17:23 by otmallah          #+#    #+#             */
+/*   Updated: 2021/12/14 02:17:25 by otmallah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
-#include <stdlib.h>
 
 char     *ft_convert_binary_2(int tab);
 
-char     *ft_convert_binary(int tab)
+char	*norme(int taab, char *res)
 {
 	int a;
-	int i;
-	int j;
-	char *result;
-	char *result2;
 
 	a = 0;
+	while (taab)
+	{
+		if (taab % 2 == 1)
+			res[a] = '1';
+		else
+			res[a] = '0';
+		a++;
+	}
+	res[a] = '\0';
+	return res;
+}
+
+char     *ft_convert_binary(int tab)
+{
+	t_test3	index;
+
+	index.a = 0;
 	if (tab >= 32 && tab <= 63)
 	{
-		j = 1;
-		result = malloc(sizeof(char) * 8);
-		result2 = malloc(sizeof(char) * 9);
-		while (tab)
+		index.j = 1;
+		index.result = malloc(sizeof(char) * 8);
+		index.result2 = malloc(sizeof(char) * 8);
+		index.result3 = malloc(sizeof(char) * 8);
+		index.result3 = norme(tab, index.result);
+		free(index.result);
+		index.i = ft_strlen(index.result3);
+		index.result2[0] = '0';
+		while (index.i--)
 		{
-			if (tab % 2 == 1)
-				result[a] = '1';
-			else
-				result[a] = '0';
-			tab /= 2;
-			a++;
+			index.result2[index.j] = index.result3[index.i];
+			index.j++; 
 		}
-		result[a] = '\0';
-		i = strlen(result);
-		result2[0] = '0';
-		while (i--)
-		{
-			result2[j] = result[i];
-			j++; 
-		}
-		free(result);
-		result2[j] = '\0';
+		free(index.result3);
+		index.result2[index.j] = '\0';
 	}
 	else
 		return ft_convert_binary_2(tab);
-	return result2;
+	return (index.result2);
 }
 
 char     *ft_convert_binary_2(int tab)
 {
-	int a;
-	int i;
-	int j;
-	char *result;
-	char *result2;
+	t_test2	index;
 
-	a = 0;
-	j = 0;
-	result = malloc(sizeof(char) * 8);
-	result2 = malloc(sizeof(char) * 8);
+	index.a = 0;
+	index.j = 0;
+	index.result = malloc(sizeof(char) * 8);
+	index.result2 = malloc(sizeof(char) * 8);
 	while (tab)
 	{
 		if (tab % 2 == 1)
-			result[a] = '1';
+			index.result[index.a] = '1';
 		else
-			result[a] = '0';
+			index.result[index.a] = '0';
 		tab /= 2;
-		a++;
+		index.a++;
 	}
-	result[a] = '\0';
-	i = strlen(result);
-	while (i--)
+	index.result[index.a] = '\0';
+	index.i = ft_strlen(index.result);
+	while (index.i--)
 	{
-		result2[j] = result[i];
-		j++; 
+		index.result2[index.j] = index.result[index.i];
+		index.j++; 
 	}
-	result2[j] = '\0';
-	free(result);
-	return result2;
+	free(index.result);
+	index.result2[index.j] = '\0';
+	return (index.result2);
 }
 
 void    client(pid_t pid, char *str)
 {
-	int i;
-	int j;
-	int a;
-	char *tab;
+	t_test index;
 
-	i = 0;
-	tab = malloc(sizeof(char) * 8);
-	while (str[i])
+	index.i = 0;
+	if (pid == -1)
+		kill(pid, SIGSTOP);
+	index.tab = malloc(sizeof(char) * 8);
+	while (str[index.i])
 	{
-		j = 0;
-		tab = ft_convert_binary((int)str[i]); 
-		// j = strlen(tab);
-		while (tab[j])
+		index.j = 0;
+		index.tab = ft_convert_binary((int)str[index.i]); 
+		while (index.tab[index.j])
 		{
-			if (tab[j] == '1')
+			if (index.tab[index.j] == '1')
 			{
 				kill(pid, SIGUSR1);
-				usleep(100);
+				usleep(100 );
 			}
-			else if (tab[j] == '0')
+			else if (index.tab[index.j] == '0')
 			{
 				kill(pid, SIGUSR2);
 				usleep(100);
 			}
-			j++;
+			index.j++;
 		}
-		free(tab);
-		i++;
+		free(index.tab);
+		index.i++;
 	}
 }
 
@@ -112,5 +123,5 @@ int main(int ac, char **av)
 { 
 	// printf("%s" , ft_convert_binary(100));
 	client(atoi(av[1]) , av[2]);
-	//system("leaks a.out");
+	// system("leaks a.out");
 }
