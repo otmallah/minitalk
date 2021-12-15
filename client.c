@@ -92,6 +92,8 @@ void	client(pid_t pid, char *str)
 	t_test	index;
 
 	index.i = 0;
+	if (pid == -1)
+		exit(1);
 	index.tab = malloc(sizeof(char) * 8);
 	while (str[index.i])
 	{
@@ -111,10 +113,10 @@ void	client(pid_t pid, char *str)
 	}
 }
 
-// int main(int ac, char **av)
-// { 
-// 	if (ac == 3)
-// 		client(atoi(av[1]) , av[2]);
-// 	else
-// 		puts("ERR{404}");
-// }
+int main(int ac, char **av)
+{ 
+	if (ac == 3)
+	client(atoi(av[1]) , av[2]);
+	else
+		puts("ERR{404}");
+}

@@ -57,29 +57,35 @@ void	ft_get_usr2(int sum)
 	t_glob	index;
 	char	res;
 
-	index.str[g_i] = '0';
-	if (ft_strlen(index.str) == 7)
+	if  (sum == SIGUSR2)
 	{
-		res = (char)ft_conver_bin_to_dec(index.str);
-		write(1, &res, 1);
-		ft_bzero(index.str, 7);
-		g_i = -1;
+		index.str[g_i] = '0';
+		if (ft_strlen(index.str) == 7)
+		{
+			res = (unsigned char)ft_conver_bin_to_dec(index.str);
+			write(1, &res, 1);
+			ft_bzero(index.str, 7);
+			g_i = -1;
+		}
 	}
 	g_i++;
 }
 
-void	ft_get_usr1(int sum)
+void	ft_get_usr1(int num)
 {
 	t_glob	index;
 	char	res;
 
-	index.str[g_i] = '1';
-	if (ft_strlen(index.str) == 7)
+	if (num == SIGUSR1)
 	{
-		res = (char )ft_conver_bin_to_dec(index.str);
-		write(1, &res, 1);
-		ft_bzero(index.str, 7);
-		g_i = -1;
+		index.str[g_i] = '1';
+		if (ft_strlen(index.str) == 7)
+		{
+			res = (unsigned char )ft_conver_bin_to_dec(index.str);
+			write(1, &res, 1);
+			ft_bzero(index.str, 7);
+			g_i = -1;
+		}
 	}
 	g_i++;
 }
@@ -92,8 +98,8 @@ void	server(void)
 		pause();
 }
 
-// int main(void)
-// {
-// 	printf("%d\n" , getpid());
-// 	server();
-// }
+int main(void)
+{
+	printf("%d\n" , getpid());
+	server();
+}
