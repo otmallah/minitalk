@@ -6,10 +6,15 @@ CFLAGS = -Wall -Wextra -Werror
 
 AR = @ar -rc
 
-RM = @rm
+RM = @rm -f
 
 FILES = ft_strlen.c \
-		ft_bzero.c
+		ft_bzero.c \
+		server.c \
+		client.c\
+		ft_atoi.c\
+		ft_putnbr.c\
+		ft_putchar.c
 
 # Colors
 C_RED = \033[1;31m
@@ -27,22 +32,18 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) -c $(FILES)
 	$(AR) $(NAME) $(OBJS)
-	@echo "$(C_GREEN)[LIBRARY CREATED!]$(C_RES)"
-
-server : server.c
+	@gcc $(CFLAGS) client.c $(NAME) -o client
 	@gcc $(CFLAGS) server.c $(NAME) -o server
 	@echo "$(C_GREEN)[SERVER CREATED!]$(C_RES)"
-
-client : client.c
-	@gcc $(CFLAGS) client.c $(NAME) -o client
 	@echo "$(C_GREEN)[CLIENT CREATED!]$(C_RES)"
+	@echo "$(C_GREEN)[LIBRARY CREATED!]$(C_RES)"
 
 clean :
-	$(RM) $(OBJS) client server
+	$(RM) $(OBJS)
 	@echo "$(C_RED)[OBJECT DELETED!]$(C_RES)"
 
-fclean :
-	$(RM) $(NAME)
+fclean : clean
+	$(RM)  $(NAME) client server
 	@echo "$(C_RED)[MINITALK.A REMOVED!]$(C_RES)"
 
 re : fclean all

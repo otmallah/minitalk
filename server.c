@@ -12,8 +12,6 @@
 
 #include "header.h"
 
-static int	g_i;
-
 int	ft_power(int nb, int power)
 {
 	int	x;
@@ -57,7 +55,7 @@ void	ft_get_usr2(int sum)
 	t_glob	index;
 	char	res;
 
-	if  (sum == SIGUSR2)
+	if (sum == SIGUSR2)
 	{
 		index.str[g_i] = '0';
 		if (ft_strlen(index.str) == 7)
@@ -90,16 +88,14 @@ void	ft_get_usr1(int num)
 	g_i++;
 }
 
-void	server(void)
+int	main(void)
 {
+	pid_t	num;
+
+	num = getpid();
+	ft_putnbr(num);
 	signal(SIGUSR1, ft_get_usr1);
 	signal(SIGUSR2, ft_get_usr2);
 	while (1)
 		pause();
-}
-
-int main(void)
-{
-	printf("%d\n" , getpid());
-	server();
 }

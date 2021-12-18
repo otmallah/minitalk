@@ -19,6 +19,11 @@
 
 size_t	ft_strlen(char *str);
 void	ft_bzero(void *s, size_t n);
+int		ft_atoi(const char *str);
+void	ft_putnbr(int t);
+void	ft_putchar(char c);
+
+static int	g_i;
 
 typedef struct s_glob {
 	char	str[7];
@@ -29,6 +34,7 @@ typedef struct s_test {
 	int		j;
 	int		a;
 	char	*tab;
+	pid_t	pid;
 }	t_test;
 
 typedef struct s_test2
@@ -39,14 +45,5 @@ typedef struct s_test2
 	char	*result;
 	char	*result2;
 }	t_test2;
-
-typedef struct s_test3
-{
-	int		a;
-	int		i;
-	int		j;
-	char	*result;
-	char	*result2;
-}	t_test3;
 
 #endif
